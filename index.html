@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PHP Calculator (AJAX)</title>
+</head>
+<body>
+    <h2>AJAX PHP Calculator</h2>
+    <form id="calcForm">
+        <input type="number" id="first_num" required placeholder="First Number" />
+        <input type="number" id="second_num" required placeholder="Second Number" />
+        <select id="operator">
+            <option value="add">Add (+)</option>
+            <option value="subtract">Subtract (-)</option>
+            <option value="multiply">Multiply (×)</option>
+            <option value="divide">Divide (÷)</option>
+        </select>
+        <button type="submit">Calculate</button>
+    </form>
+    <h3>Result: <span id="result"></span></h3>
+
+    <script>
+    document.getElementById('calcForm').onsubmit = function(e) {
+        e.preventDefault();
+        var formData = new FormData();
+        formData.append('first_num', document.getElementById('first_num').value);
+        formData.append('second_num', document.getElementById('second_num').value);
+        formData.append('operator', document.getElementById('operator').value);
+
+        fetch('calculator_api.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('result').innerText = data.result;
+        });
+    };
+    </script>
+</body>
+</html>
