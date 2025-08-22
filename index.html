@@ -3,22 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <title>PHP Calculator (AJAX)</title>
+    <style>
+        body {
+            background: #e8f4fa;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator-container {
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 6px 24px rgba(0, 80, 175, 0.08);
+            border: 2px solid #b8e0fb;
+        }
+        h2 {
+            color: #207dca;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        input, select, button {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #b8e0fb;
+            font-size: 1em;
+            transition: border-color 0.2s;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #207dca;
+        }
+        button {
+            background: linear-gradient(90deg, #3bb6e9 0%, #88cfff 100%);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: linear-gradient(90deg, #207dca 0%, #3bb6e9 100%);
+        }
+        .result {
+            font-size: 1.3em;
+            text-align: center;
+            margin-top: 20px;
+            color: #207dca;
+            min-height: 1.2em;
+        }
+    </style>
 </head>
 <body>
-    <h2>AJAX PHP Calculator</h2>
-    <form id="calcForm">
-        <input type="number" id="first_num" required placeholder="First Number" />
-        <input type="number" id="second_num" required placeholder="Second Number" />
-        <select id="operator">
-            <option value="add">Add (+)</option>
-            <option value="subtract">Subtract (-)</option>
-            <option value="multiply">Multiply (×)</option>
-            <option value="divide">Divide (÷)</option>
-        </select>
-        <button type="submit">Calculate</button>
-    </form>
-    <h3>Result: <span id="result"></span></h3>
-
+    <div class="calculator-container">
+        <h2>AJAX PHP Calculator</h2>
+        <form id="calcForm">
+            <input type="number" id="first_num" required placeholder="First Number" />
+            <input type="number" id="second_num" required placeholder="Second Number" />
+            <select id="operator">
+                <option value="add">Add (+)</option>
+                <option value="subtract">Subtract (-)</option>
+                <option value="multiply">Multiply (×)</option>
+                <option value="divide">Divide (÷)</option>
+            </select>
+            <button type="submit">Calculate</button>
+        </form>
+        <div class="result" id="result"></div>
+    </div>
     <script>
     document.getElementById('calcForm').onsubmit = function(e) {
         e.preventDefault();
@@ -33,7 +91,7 @@
         })
         .then(response => response.json())
         .then(data => {
-            document.getElementById('result').innerText = data.result;
+            document.getElementById('result').innerText = 'Result: ' + data.result;
         });
     };
     </script>
